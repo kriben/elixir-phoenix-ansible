@@ -1,9 +1,10 @@
 ---
-- name: install nodejs and npm packages (yes, really)
+- name: install packages
   apt: pkg={{ item }} state=latest update_cache=yes
   with_items:
     - nodejs
     - npm
+    - inotify-tools
 
 - name: symlink nodejs to node
   file: src=/usr/bin/nodejs dest=/usr/bin/node state=link
