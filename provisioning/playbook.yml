@@ -1,0 +1,17 @@
+---
+- hosts: development
+  gather_facts: no
+  sudo: yes
+  roles:
+    - role: ntp
+      tags: ntp
+    - role: erlang
+      tags: erlang
+    - role: elixir
+      tags: elixir
+    - role: phoenix
+      tags: phoenix
+    - role: postgresql
+      tags: postgresql
+    - role: vagrant
+      tags: vagrant

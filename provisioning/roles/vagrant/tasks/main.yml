@@ -1,0 +1,28 @@
+---
+- name: ensure sudo keeps SSH_AUTH_SOCK in environment
+  copy: src=env
+        dest=/etc/sudoers.d/env
+        mode=0440
+        owner=root
+        group=root
+
+- name: add host keys for github.com and bitbucket.org
+  copy: src=ssh_known_hosts
+        dest=/etc/ssh/ssh_known_hosts
+        mode=0644
+        owner=root
+        group=root
+
+- name: hide login message
+  copy: dest=/home/vagrant/.hushlogin
+        content=
+        owner=vagrant
+        group=vagrant
+        mode=0644
+
+- name: install bash_profile
+  copy: src=dot.bash_profile
+        dest=/home/vagrant/.bash_profile
+        owner=vagrant
+        group=vagrant
+        mode=0644

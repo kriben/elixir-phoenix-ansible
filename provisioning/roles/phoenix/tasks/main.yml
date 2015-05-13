@@ -1,0 +1,23 @@
+---
+- name: install nodejs and npm packages (yes, really)
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items:
+    - nodejs
+    - npm
+
+- name: symlink nodejs to node
+  file: src=/usr/bin/nodejs dest=/usr/bin/node state=link
+  
+- name: install local.hex package manager
+  sudo_user: vagrant
+  sudo: yes
+  shell: mix local.hex --force
+  args:
+    creates: /home/vagrant/.mix/archives/hex.ez
+
+- name: install phoenix
+  sudo_user: vagrant
+  sudo: yes
+  shell: mix archive.install https://github.com/phoenixframework/phoenix/releases/download/v0.13.0/phoenix_new-0.13.0.ez --force
+  args:
+    creates: /home/vagrant/.mix/archives/phoenix_new-0.13.0.ez

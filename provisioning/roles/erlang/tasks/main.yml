@@ -1,0 +1,11 @@
+---
+- name: add erlang repo
+  apt_repository: repo='deb http://packages.erlang-solutions.com/ubuntu trusty contrib'
+
+- name: add erlang repo key
+  apt_key: url=https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
+
+- name: install packages
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items:
+    - erlang

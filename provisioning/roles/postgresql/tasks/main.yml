@@ -1,0 +1,20 @@
+---
+- name: install packages
+  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+    - postgresql
+    - libpq-dev
+  # postgresql package requires correct locale when installing
+  environment:
+    LC_ALL: en_US.UTF-8
+
+- name: install norwegian locale
+  apt: pkg=language-pack-nb state=latest
+  notify:
+    - restart postgresql
+    
+- name: ensure postgresql is running
+  service: name=postgresql state=running enabled=yes
+
+# Ensure that postgresql is restarted before we create databases and users
+- meta: flush_handlers

@@ -1,0 +1,4 @@
+---
+postgresql:
+  ipv4_trust: 127.0.0.1/32
+  listen: localhost
