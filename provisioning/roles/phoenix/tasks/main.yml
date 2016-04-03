@@ -1,11 +1,22 @@
 ---
-- name: install packages
+- name: inotify-tools package
   apt: pkg={{ item }} state=latest update_cache=yes
   with_items:
-    - nodejs
-    - npm
     - inotify-tools
 
+- name: add nodesource apt key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+
+- name: add nodesource repositories for nodejs
+  apt_repository:
+    repo: deb https://deb.nodesource.com/node_5.x trusty main
+    state: present
+
+- name: install nodejs and npm
+  apt: pkg=nodejs=5.* state=present update_cache=yes
+  
 - name: symlink nodejs to node
   file: src=/usr/bin/nodejs dest=/usr/bin/node state=link
   
