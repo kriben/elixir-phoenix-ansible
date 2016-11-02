@@ -6,12 +6,13 @@
 
 - name: add nodesource apt key
   apt_key:
-    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280
+    id: "68576280"
     state: present
 
 - name: add nodesource repositories for nodejs
   apt_repository:
-    repo: deb https://deb.nodesource.com/node_5.x trusty main
+    repo: deb https://deb.nodesource.com/node_5.x xenial main
     state: present
 
 - name: install nodejs and npm
@@ -21,15 +22,15 @@
   file: src=/usr/bin/nodejs dest=/usr/bin/node state=link
   
 - name: install local.hex package manager
-  sudo_user: vagrant
-  sudo: yes
+  become_user: ubuntu
+  become: yes
   shell: mix local.hex --force
   args:
     creates: /home/vagrant/.mix/archives/hex.ez
 
 - name: install phoenix
-  sudo_user: vagrant
-  sudo: yes
+  become_user: ubuntu
+  become: yes
   shell: mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez --force
   args:
     creates: /home/vagrant/.mix/archives/phoenix_new.ez

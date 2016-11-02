@@ -1,4 +1,7 @@
 ---
+- name: generate locale
+  locale_gen: name=en_US.UTF-8 state=present
+
 - name: ensure sudo keeps SSH_AUTH_SOCK in environment
   copy: src=env
         dest=/etc/sudoers.d/env
@@ -14,15 +17,15 @@
         group=root
 
 - name: hide login message
-  copy: dest=/home/vagrant/.hushlogin
+  copy: dest=/home/ubuntu/.hushlogin
         content=
-        owner=vagrant
-        group=vagrant
+        owner=ubuntu
+        group=ubuntu
         mode=0644
 
 - name: install bash_profile
   copy: src=dot.bash_profile
-        dest=/home/vagrant/.bash_profile
-        owner=vagrant
-        group=vagrant
+        dest=/home/ubuntu/.bash_profile
+        owner=ubuntu
+        group=ubuntu
         mode=0644

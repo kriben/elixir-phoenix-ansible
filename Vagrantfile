@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "trusty64-current"
-  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+  config.vm.box = "bento/xenial64-cloud"
+  config.vm.box_url = "http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-vagrant.box"
   config.vm.synced_folder ".", "/vagrant", nfs: true
   config.ssh.forward_agent = true
   config.vm.provider :virtualbox do |vb|
