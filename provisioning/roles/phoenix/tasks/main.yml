@@ -1,36 +1,22 @@
 ---
 - name: inotify-tools package
-  apt: pkg={{ item }} state=latest update_cache=yes
-  with_items:
-    - inotify-tools
-
-- name: add nodesource apt key
-  apt_key:
-    url: https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280
-    id: "68576280"
-    state: present
-
-- name: add nodesource repositories for nodejs
-  apt_repository:
-    repo: deb https://deb.nodesource.com/node_5.x xenial main
-    state: present
+  apt: pkg=inotify-tools state=latest update_cache=yes
 
 - name: install nodejs and npm
-  apt: pkg=nodejs=5.* state=present update_cache=yes
-  
-- name: symlink nodejs to node
-  file: src=/usr/bin/nodejs dest=/usr/bin/node state=link
-  
+  apt:
+    state: latest
+    pkg:
+      - nodejs
+      - npm
+
 - name: install local.hex package manager
-  become_user: ubuntu
+  become_user: vagrant
   become: yes
   shell: mix local.hex --force
   args:
     creates: /home/vagrant/.mix/archives/hex.ez
 
 - name: install phoenix
-  become_user: ubuntu
+  become_user: vagrant
   become: yes
-  shell: mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez --force
-  args:
-    creates: /home/vagrant/.mix/archives/phoenix_new.ez
+  shell: mix archive.install hex phx_new 1.5.7 --force

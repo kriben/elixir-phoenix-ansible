@@ -15,17 +15,3 @@
         mode=0644
         owner=root
         group=root
-
-- name: hide login message
-  copy: dest=/home/ubuntu/.hushlogin
-        content=
-        owner=ubuntu
-        group=ubuntu
-        mode=0644
-
-- name: install bash_profile
-  copy: src=dot.bash_profile
-        dest=/home/ubuntu/.bash_profile
-        owner=ubuntu
-        group=ubuntu
-        mode=0644

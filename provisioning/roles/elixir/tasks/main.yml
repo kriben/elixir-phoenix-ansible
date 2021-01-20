@@ -1,5 +1,3 @@
 ---
 - name: install packages
-  apt: pkg={{ item }} state=latest update_cache=yes
-  with_items:
-    - elixir
+  apt: pkg=elixir state=latest update_cache=yes

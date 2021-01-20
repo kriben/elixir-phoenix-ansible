@@ -1,4 +1,7 @@
 ---
+- name: install apt-transport-https
+  apt: pkg=apt-transport-https state=latest update_cache=yes
+
 - name: set timezone
   copy: src=timezone
         dest=/etc/timezone
@@ -12,7 +15,7 @@
   apt: pkg=ntp state=latest update_cache=yes
 
 - name: make sure ntp is running
-  service: name=ntp state=running enabled=yes
+  service: name=ntp state=started enabled=yes
 
 # Flush handlers so that we can be sure the system uses the timezone from
 # /etc/timezone (even if laters tasks fail)
